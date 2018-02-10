@@ -67,7 +67,6 @@ import { EventComponent } from './event/event.component';
 import { RsvpEventService } from './rsvp-event.service';
 import { RsvpComponent } from './event/rsvp/rsvp.component';
 import { EventService } from './event/event.service';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocationComponent } from './location/location.component';
 
 import { AgmCoreModule } from '@agm/core';
@@ -118,7 +117,6 @@ import { LocationsService } from './admin/locations-admin/locations.service';
     NgbModule.forRoot(),
     DemoUtilsModule,
     HttpClientModule,
-    NgxDatatableModule,
     //Angular Materials
     CdkTableModule, 
     MatAutocompleteModule, 
