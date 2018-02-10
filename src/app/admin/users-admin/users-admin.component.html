@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>User id</th>
+      <th>User Email</th>
+
+    </tr>
+  </thead>
+
+  <tbody >
+    <tr *ngFor="let user of userArray">
+      <td>{{user.id}}</td>
+      <td>{{user.email}}</td>
+      <td><i class="material-icons actionIcon" (click)='deleteUser(user)'>delete</i></td>
+
+</tr>
+</tbody>
+</table>

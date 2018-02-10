@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Upload } from './upload';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase';
@@ -7,9 +7,14 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UploadService {
 
-  basePath = 'uploads';
+  basePath = 'cuffyUploads';
   uploadsRef: AngularFireList<Upload>;
   uploads: Observable<Upload[]>;
+
+  //types
+  eventUploadDone = new EventEmitter();
+  itemUploadDone = new EventEmitter();
+
 
   constructor(private db: AngularFireDatabase) { }
 
@@ -24,20 +29,18 @@ export class UploadService {
     return this.uploads;
   }
 
-  deleteUpload(upload: Upload) {
-    this.deleteFileData(upload.$key)
-    .then( () => {
-      this.deleteFileStorage(upload.name);
-    })
-    .catch((error) => console.log(error));
+  deleteUpload(name: string) {
+ 
+ this.deleteFileStorage(name);
+
   }
 
   // Executes the file uploading to firebase https://firebase.google.com/docs/storage/web/upload-files
-  pushUpload(upload: Upload) {
+  pushUpload(upload: Upload, type?): any {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
 
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+    return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot: firebase.storage.UploadTaskSnapshot) =>  {
         // upload in progress
         const snap = snapshot;
@@ -53,7 +56,14 @@ export class UploadService {
           upload.url = uploadTask.snapshot.downloadURL;
           upload.name = upload.file.name;
           this.saveFileData(upload);
-          return;
+          console.log(upload);
+          if (type == 'event') {
+           this.eventUploadDone.emit(upload);
+          }
+          if (type == 'item') {
+           this.itemUploadDone.emit(upload);
+          }
+          return ;
         } else {
           console.error('No download URL!');
         }

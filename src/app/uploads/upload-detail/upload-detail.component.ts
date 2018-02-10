@@ -16,6 +16,6 @@ export class UploadDetailComponent {
   constructor(private upSvc: UploadService) { }
 
   deleteUpload() {
-    this.upSvc.deleteUpload(this.upload);
+   // this.upSvc.deleteUpload(this.upload);
   }
 }

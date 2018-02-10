@@ -1,0 +1,48 @@
+<div class="title">Our Locations</div>
+<hr>
+<div *ngIf="lat && lng">
+  <agm-map [latitude]="lat" [longitude]="lng" [styles]='stylesCustom'>
+    <agm-marker [latitude]="lat" [longitude]="lng">
+      <agm-info-window>
+        <h3><strong>Howdy!</strong></h3>
+        <p>You are here!</p>
+      </agm-info-window>
+    </agm-marker>
+
+
+<span *ngFor="let address of addresses | async">
+  <agm-marker [latitude]="address.lat" [longitude]="address.lng" [iconUrl]="'assets/images/cuffyIcon.png'">>
+      <agm-info-window>
+        <h3><strong>{{address.name}}</strong></h3>
+        <p>{{address.description}}</p>
+      </agm-info-window>
+    </agm-marker>
+</span>
+
+  </agm-map>
+<div>
+
+	<table class="table">
+	  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Location</th>
+
+    </tr>
+  </thead>
+
+
+  <tbody>
+
+<tr *ngFor="let address of addresses | async; let i = index">
+      <th>{{address.name}}</th>
+      <td>{{address.description}}</td>
+      <td>{{address.address}}</td>
+
+    </tr>
+
+
+  	
+  </tbody>
+</table>

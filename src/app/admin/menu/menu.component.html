@@ -1,0 +1,50 @@
+<aside class="menu">
+  <p class="menu-label">
+    Events
+  </p>
+
+    <ul class="menu-list">
+    <li>     
+      <ul>
+        <li><a [routerLink]="['/admin/events/create']" [routerLinkActive]="'is-active'">Add Event</a></li>
+        <li><a [routerLink]="['/admin/events/manage']" [routerLinkActive]="'is-active'">Manage Events</a></li>
+      </ul>
+    </li>
+  </ul>
+
+    <p class="menu-label">
+    Inventory
+  </p>
+    <ul class="menu-list">
+    <li>     
+      <ul>
+        <li><a [routerLink]="['/admin/inventory/create']" [routerLinkActive]="'is-active'">Add Item</a></li>
+        <li><a [routerLink]="['/admin/inventory/manage']" [routerLinkActive]="'is-active'">Manage Items</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <p class="menu-label">
+    Location
+  </p>
+  <ul class="menu-list">
+    <li>     
+      <ul>
+        <li><a [routerLink]="['/admin/locations/create']" [routerLinkActive]="'is-active'">Add Location</a></li>
+        <li><a [routerLink]="['/admin/locations/manage']" [routerLinkActive]="'is-active'">Manage Locations</a></li>
+
+      </ul>
+    </li>
+  </ul>
+  <p class="menu-label">
+    Users
+  </p>
+  <ul class="menu-list">
+    <li>     
+      <ul>
+        <li><a [routerLink]="['/admin/users']" [routerLinkActive]="'is-active'">Manage Users</a></li>
+
+      </ul>
+    </li>
+  </ul>
+</aside>

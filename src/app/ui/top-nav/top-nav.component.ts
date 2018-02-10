@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'top-nav',
@@ -8,9 +8,11 @@ import { Component } from '@angular/core';
 export class TopNavComponent {
 
   show = false;
+  @Output() sideNavTrigger = new EventEmitter;
 
   toggleCollapse() {
-    this.show = !this.show;
+   this.sideNavTrigger.emit();
   }
+
 
 }

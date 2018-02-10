@@ -1,0 +1,8 @@
+<span *ngIf="user?.uid">
+<div *ngFor="let event of events | async">
+	<p>{{event.name}}</p>
+	<p>{{event.description}}</p>
+	<rsvp [eventId]="event.id" [userId]="user.uid"></rsvp>
+</div>
+</span>
+

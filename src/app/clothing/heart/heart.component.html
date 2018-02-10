@@ -1,0 +1,26 @@
+<div *ngFor="let heart of hearts | async">
+	
+	<a *ngIf="!heart.value" (click)="starHandler(true)">
+
+	<i class="fa fa-heart-o" aria-hidden="true"></i>
+
+	</a>
+
+	<a *ngIf="heart.value" (click)="starHandler(false)">
+
+	<i class="fa fa-heart" aria-hidden="true"></i>
+
+	</a>
+
+</div>
+
+	<span *ngIf="heartsArr?.length == 0">
+<a  (click)="starHandler(true)">
+
+	<i class="fa fa-heart-o" aria-hidden="true"></i>
+
+	</a>
+	</span>
+
+
+

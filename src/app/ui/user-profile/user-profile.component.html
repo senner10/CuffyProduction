@@ -1,22 +1,35 @@
-<div class="box" >
+
   <div *ngIf="auth.user | async; then authenticated else guest">
           <!-- template will replace this div -->
   </div>
-</div>
+
 
 <!-- User NOT logged in -->
-<ng-template #guest class="box">
-  <h3>Howdy, GUEST</h3>
-  <p class="card-text">Login to get started...</p>
+<ng-template #guest>
+
   <button class="button" routerLink="/login">Login</button>
 </ng-template>
 
 <!-- User logged in -->
 <ng-template #authenticated>
-  <div *ngIf="auth.user | async as user">
-    <h3>Howdy, {{ user.displayName }}</h3>
-    <img class="card-img-top" [src]="user.photoURL || 'https://api.adorable.io/avatars/109/fire.png'" width=50px>
-    <p class="text-truncate">UID: {{ user.uid }}</p>
-    <button class="button" (click)="logout()">Logout</button>
-  </div>
+   <!--  <button class="button" (click)="logout()">Logout</button> -->
+
+       <div class="navbar-item has-dropdown is-hoverable" style="padding-right: 30px;">
+       <a class="navbar-link" [routerLink]="['/account']">
+          <i class="material-icons">account_box</i>
+      </a>
+        <div class="navbar-dropdown is-boxed">
+          <a class="navbar-item" [routerLink]="['/account']">
+            Your Account
+          </a>
+          <a class="navbar-item" [routerLink]="['/account/settings']">
+            Account Settings
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item" (click)="logout()">
+            Logout
+          </a>
+   
+        </div>
+      </div>
 </ng-template>

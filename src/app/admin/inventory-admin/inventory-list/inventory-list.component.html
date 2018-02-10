@@ -1,0 +1,54 @@
+
+ <table class="table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Description</th>
+        <th>Category</th>
+      <th></th>
+        <th></th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+
+<tr *ngFor="let item of items | async">
+  <th><img [src]="item.imageUrl" style="height:50px;width:260px; border-radius:50%"></th>
+      <th>{{item.name}}</th>
+      <td>{{item.description}}</td>
+      <td>{{item.category}}</td>
+      <td><i class="material-icons actionIcon" (click)='deleteItem(item)'>delete</i></td>
+      <td><i class="material-icons actionIcon" (click)='activateModal(item)'>edit</i></td>
+    
+    </tr>
+
+
+    
+  </tbody>
+</table>
+
+
+
+
+<!--MODAL-->
+
+<div [ngClass]="{'modal': true, 'is-active': modalIsActive}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit Item</p>
+      <button class="delete" aria-label="close" (click)='modalIsActive=false'></button>
+    </header>
+    <section class="modal-card-body">
+      
+	<!-- <events-input-admin [eventPassed]='editEvent' ></events-input-admin> -->
+	<inventory-input  [itemPassed]='editItem'></inventory-input>
+
+    </section>
+   
+  </div>
+</div> 
+
+

@@ -1,0 +1,73 @@
+<mwl-demo-utils-calendar-header
+  [(view)]="view"
+  [(viewDate)]="viewDate"
+  (viewDateChange)="fetchEvents()"
+  (viewChange)="fetchEvents()">
+</mwl-demo-utils-calendar-header>
+
+<ng-template #loading>
+  <div class="text-center">
+    <i class="fa fa-spin fa-spinner fa-5x"></i>
+    <br>
+    Loading events...
+  </div>
+</ng-template>
+
+<div *ngIf="events | async; else loading; let events">
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="eventClicked($event.event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventClicked)="eventClicked($event.event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventClicked)="eventClicked($event.event)">
+    </mwl-calendar-day-view>
+  </div>
+</div>
+
+<!--MODAL-->
+
+<div [ngClass]="{'modal': true, 'is-active': modalIsActive}" *ngIf="user && currentEventData.meta">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title"> {{currentEventData.meta.data.name}}</p>
+      <button class="delete" aria-label="close" (click)='modalIsActive=false'></button>
+    </header>
+    <section class="modal-card-body">
+  <div style="displa:flex; justify-content:center">
+    <div style="flex:1; text-align:center" >
+      <img [src]="currentEventData.meta.data.imageUrl" style="width:333px; height:250px"><br/><br/>
+   <rsvp [eventId]="currentEventData.id" [userId]="user.uid"></rsvp>
+<hr>
+  <h1 class="title">{{currentEventData.meta.data.name}}</h1>
+<h2 class="subtitle">{{currentEventData.meta.data.description}}</h2>
+<br/>
+<strong>Date:</strong> {{currentEventData.meta.data.date}} 
+</div>
+</div>
+
+    
+
+
+  
+
+     
+
+    </section>
+   
+  </div>
+</div>

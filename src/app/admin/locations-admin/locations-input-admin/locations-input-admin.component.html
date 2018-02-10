@@ -1,0 +1,35 @@
+
+<form [formGroup]="myForm">
+
+
+<!-- Location TITLE -->
+<div class="field">
+  <label class="label">Location Title</label>
+  <div class="control">
+<input formControlName="name" placeholder="Name of Location" class="input">
+  </div>
+</div>
+
+
+<!-- Location DESCRIPTION -->
+<div class="field">
+  <label class="label">Location Description</label>
+  <div class="control">
+    <textarea formControlName="description" class="textarea" placeholder="Describe Location"></textarea>
+  </div>
+</div>
+
+<!-- Location Address -->
+<div class="field">
+  <label class="label">Location Address (Street, City, State)</label>
+  <div class="control">
+    <input formControlName="address" class="input" placeholder="Location Address">
+  </div>
+</div>
+
+
+<button class="button is-success" (click)='submitLoc()' [disabled]="!myForm.valid">
+  <span *ngIf="!isUpdate">Add Location</span>
+  <span *ngIf="isUpdate">Update Location</span>
+</button>
+</form>

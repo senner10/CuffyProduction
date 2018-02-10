@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { NotifyService } from './notify.service';
 
 import { Observable } from 'rxjs/Observable';
@@ -21,10 +21,16 @@ export class AuthService {
 
   user: Observable<User | null>;
 
+  usersCollection: AngularFirestoreCollection<any>;
+  userDocument:   AngularFirestoreDocument<any>;
+
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
               private notify: NotifyService) {
+
+     this.usersCollection = this.afs.collection('users');
+
 
     this.user = this.afAuth.authState
       .switchMap((user) => {
@@ -80,6 +86,14 @@ export class AuthService {
         console.error(error.message);
         this.handleError(error);
       });
+
+
+  }
+
+  //// Get current user info ////
+
+  getData(): Observable<any[]> {
+    return this.usersCollection.valueChanges();
   }
 
   //// Email/Password Auth ////

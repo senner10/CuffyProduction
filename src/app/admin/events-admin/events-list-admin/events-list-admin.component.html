@@ -1,0 +1,49 @@
+<table class="table">
+	  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th><abbr title="Number Of People Who Have RSVP'd">Attendees</abbr></th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+
+<tr *ngFor="let event of events | async; let i = index">
+      <th>{{event.name}}</th>
+      <td>{{event.date}}</td>
+      <td>{{AttendeeNum[i]}}</td>
+      <td>{{event.description}}</td>
+      <td><i class="material-icons actionIcon" (click)='deleteEvent(event)'>delete</i></td>
+      <td><i class="material-icons actionIcon" (click)='activateModal(event)'>edit</i></td>
+    
+    </tr>
+
+
+  	
+  </tbody>
+</table>
+
+<!--MODAL-->
+
+<div [ngClass]="{'modal': true, 'is-active': modalIsActive}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit Event</p>
+      <button class="delete" aria-label="close" (click)='modalIsActive=false'></button>
+    </header>
+    <section class="modal-card-body">
+      
+	<events-input-admin [eventPassed]='editEvent' ></events-input-admin>
+
+    </section>
+   
+  </div>
+</div>
+
+

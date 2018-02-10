@@ -1,0 +1,40 @@
+<div *ngFor="let rsvp of rsvps | async">
+		
+	<a *ngIf="!rsvp.value" (click)="rsvpHandler(true)">
+
+<a class="button is-primary">
+    <span class="icon">
+      <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+    </span>
+    <span>RSVP to Event</span>
+  </a>
+
+  </a>
+
+	<a *ngIf="rsvp.value" (click)="rsvpHandler(false)">
+
+	<a class="button is-danger">
+    <span class="icon">
+      <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+    </span>
+    <span>Un-RSVP To Event</span>
+  </a>
+
+	</a>
+
+
+
+</div>
+
+	<span *ngIf="rsvpsArr?.length == 0">
+<a  (click)="rsvpHandler(true)">
+
+		<a class="button is-primary">
+    <span class="icon">
+      <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+    </span>
+    <span>RSVP to Event</span>
+  </a>
+
+	</a>
+	</span>

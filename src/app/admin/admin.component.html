@@ -1,0 +1,22 @@
+<div class="columns">
+  <div class="column is-4">
+
+
+    <menu></menu>
+
+  </div>
+  <div class="column">
+
+    <locations-admin *ngIf="path == 'admin/locations'"></locations-admin>
+    <events-list-admin *ngIf="path == 'admin/events/manage'"></events-list-admin>
+    <events-input-admin *ngIf="path == 'admin/events/create'"></events-input-admin>
+    <inventory-input *ngIf="path == 'admin/inventory/create'"></inventory-input>
+    <inventory-list *ngIf="path == 'admin/inventory/manage'"></inventory-list>
+  <users-admin *ngIf="path == 'admin/users'"></users-admin>
+  <locations-input-admin *ngIf="path == 'admin/locations/create'"></locations-input-admin>
+	<locations-list-admin *ngIf="path == 'admin/locations/manage'"></locations-list-admin>
+
+
+  </div>
+
+</div>

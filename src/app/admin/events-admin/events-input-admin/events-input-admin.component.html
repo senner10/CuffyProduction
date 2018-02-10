@@ -1,0 +1,84 @@
+
+<form [formGroup]="myForm" (ngSubmit)="uploadSingle()">
+
+
+<!-- EVENT TITLE -->
+<div class="field">
+  <label class="label">Event Title</label>
+  <div class="control">
+<input formControlName="name" placeholder="Name of event" class="input">
+  </div>
+</div>
+
+
+<!-- EVENT DESCRIPTION -->
+<div class="field">
+  <label class="label">Event Description</label>
+  <div class="control">
+    <textarea formControlName="description" class="textarea" placeholder="Describe Event"></textarea>
+  </div>
+</div>
+
+<!-- DATE PICKER -->
+<div class="field">
+  <label class="label">Event Date</label>
+  <div class="control">
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+  </div>
+</div>
+
+<!-- TIME SELECT -->
+<div class="field">
+  <label class="label">Event Time</label>
+  <div class="control">
+<input formControlName="time" type="time" class="input" step="60"  >
+  </div>
+</div>
+
+
+
+<!-- FILE UPLOAD -->
+
+<div class="field">
+  <label class="label">Event Image</label>
+  <div class="control">
+
+
+<div class="file has-name">
+  <label class="file-label">
+    <input class="file-input" type="file" name="resume" (change)="detectFiles($event)" >
+    <span class="file-cta">
+      <span class="file-icon">
+        <i class="fa fa-upload"></i>
+      </span>
+      <span class="file-label">
+        Choose a file…
+      </span>
+    </span>
+    <span class="file-name">
+      {{imageUrl}}
+    </span>
+  </label>
+</div>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<button class="button is-success"  [disabled]="!myForm.valid">
+  <span *ngIf="!isUpdate">Add Event</span>
+  <span *ngIf="isUpdate">Update Event</span>
+</button>
+</form>

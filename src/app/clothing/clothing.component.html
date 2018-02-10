@@ -1,0 +1,53 @@
+<div class="title">Our Products</div>
+
+
+<div class="tabs">
+  <ul>
+    <li [ngClass]="{'is-active': activeCat=='mens'}"><a (click)="changeCat('mens')">Mens</a></li>
+    <li [ngClass]="{'is-active': activeCat=='womens'}"><a (click)="changeCat('womens')">Womens</a></li>
+    <li [ngClass]="{'is-active': activeCat=='misc'}"><a (click)="changeCat('misc')">Misc</a></li>
+  </ul>
+</div>
+
+
+<div class="columns is-multiline">
+<div class="column is-4"  *ngFor="let item of items | async">
+	<span *ngIf="user">
+<div class="card">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img [src]="item.imageUrl" alt="Placeholder image">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+<heart [userId]='user.uid' [itemId]='item.name'></heart>
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4">{{item.name}}</p>
+        
+      </div>
+    </div>
+
+    <div class="content">
+     {{item.description}}<br>
+     <p>
+	{{item.tags}}
+</p>	
+
+    </div>
+  </div>
+</div>
+
+
+
+
+</span>
+  </div>
+  
+
+</div>
+
