@@ -13,6 +13,8 @@ import { MapsAPILoader } from '@agm/core';
 import { LocationsService } from '../locations.service';
 import {MatSnackBar} from '@angular/material';
 
+declare var google: any;
+
 
 @Component({
   selector: 'locations-input-admin',
