@@ -6,6 +6,7 @@ import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage';
 
 import {} from '@types/googlemaps';
+
 import { Observable } from 'rxjs/Observable';
 import { MapsAPILoader } from '@agm/core';
 
