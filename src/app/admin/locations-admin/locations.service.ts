@@ -27,7 +27,7 @@ export class LocationsService {
     return this.locationCollection.snapshotChanges().map((actions) => {
       return actions.map((a) => {
         const data = a.payload.doc.data();
-        return { id: a.payload.doc.id, name: data.name, tags: data.tags, image:data.image,imageUrl: data.imageUrl, description: data.description, hearts: data.hearts, catgory: data.category };
+        return { id: a.payload.doc.id, name: data.name, address: data.address, description: data.description,  };
       });
     });
   }
@@ -38,8 +38,8 @@ export class LocationsService {
 
 
   createLocation(item: any) {
-    const tagPath = `location/${item.name}`;
-    return this.afs.doc(tagPath).set(item);
+
+    return this.locationCollection.add(item)
   }
 
   updateLocation(id: string, data: Partial<Event>) {

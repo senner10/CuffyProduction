@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RsvpEventService } from '../../rsvp-event.service';
 import { Observable } from 'rxjs/Observable';
+
+import {MatSnackBar} from '@angular/material';
+
 @Component({
   selector: 'rsvp',
   templateUrl: './rsvp.component.html',
@@ -15,7 +18,7 @@ export class RsvpComponent implements OnInit {
 
   rsvpsArr: any;
 
-  constructor(public rsvpEventService:RsvpEventService) { }
+  constructor(public snackBar: MatSnackBar, public rsvpEventService:RsvpEventService) { }
 
     ngOnInit() {
   
@@ -31,7 +34,11 @@ export class RsvpComponent implements OnInit {
   }
 
     rsvpHandler(value) {
-    this.rsvpEventService.setRsvp(this.userId, this.eventId, value)
+    this.rsvpEventService.setRsvp(this.userId, this.eventId, value);
+    
+        this.snackBar.open("RSVP Updated!", 'close', {
+           duration: 4000,
+         });
   }
 
 }

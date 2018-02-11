@@ -63,9 +63,9 @@ export class UserService {
 
   getRsvpEvents(userId: string){
 
-   this.rsvpCollection = this.afs.collection('users').doc(userId).collection('rsvp');    
+   this.rsvpCollection = this.afs.collection('rsvps', ref => ref.where('userId', '==', userId));   
 
-    return this.afs.collection('users').doc(userId).collection('rsvp').valueChanges();    
+    return this.rsvpCollection.valueChanges();    
   }
 
     getRsvp(id: string, userId: string) {

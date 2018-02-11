@@ -4,6 +4,7 @@ import { UploadService } from '../../../uploads/shared/upload.service';
 import { Observable } from 'rxjs/Observable';
 import { Event } from '../event.model';
 import {Upload} from '../../../uploads/shared/upload';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'events-list-admin',
@@ -24,7 +25,7 @@ export class EventsListAdminComponent implements OnInit {
   AttendeeNum=[];
 
 
-  constructor(public eventService: EventService, public uploadService: UploadService) { }
+  constructor(public snackBar: MatSnackBar, public eventService: EventService, public uploadService: UploadService) { }
 
   ngOnInit() {
 
@@ -39,6 +40,7 @@ export class EventsListAdminComponent implements OnInit {
       for (var i = 0; i < data.length; ++i) { 
 
        this.eventService.countRsvps(data[i].id).take(1).subscribe(data=>{
+         console.log(data);
          this.AttendeeNum.push(data.length);
        });
 
@@ -65,6 +67,10 @@ export class EventsListAdminComponent implements OnInit {
              });
     
     this.eventService.deleteEvent(event.id);
+    
+               this.snackBar.open("Event Deleted", 'close', {
+      duration: 4000,
+    });
   }
 
 

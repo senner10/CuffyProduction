@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { MapsAPILoader } from '@agm/core';
 
 import { LocationsService } from '../locations.service';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class LocationsInputAdminComponent implements OnInit {
 	isUpdate = false;
 
 
-  constructor(public locationsService: LocationsService, public mapsAPILoader: MapsAPILoader) { }
+  constructor(public snackBar: MatSnackBar, public locationsService: LocationsService, public mapsAPILoader: MapsAPILoader) { }
 
   ngOnInit() {
   }
@@ -69,6 +70,10 @@ export class LocationsInputAdminComponent implements OnInit {
 
 
 });
+
+      this.snackBar.open("Location Created", 'close', {
+      duration: 4000,
+    });
 
   	   
   }

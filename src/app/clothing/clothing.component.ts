@@ -24,9 +24,9 @@ export class ClothingComponent implements OnInit {
 	user: any;
 	items: Observable<any>;
 
-  menItems: AngularFirestoreCollection<any>;
-  womenItems: AngularFirestoreCollection<any>;
-  miscItems: AngularFirestoreCollection<any>;
+  menItems: Observable<any>;
+  womenItems: Observable<any>;
+  miscItems: Observable<any>;
 
   activeCat = 'mens';
 
@@ -40,22 +40,13 @@ export class ClothingComponent implements OnInit {
 
 
 
-    this.menItems = this.afs.collection('inventory', ref => ref.where('category', '==', 'mens'));
-    this.womenItems = this.afs.collection('inventory', ref => ref.where('category', '==', 'womens'));
-    this.miscItems = this.afs.collection('inventory', ref => ref.where('category', '==', 'misc'));
+    this.menItems = this.getSnapshot(this.afs.collection('inventory', ref => ref.where('category', '==', 'mens')));
+    this.womenItems = this.getSnapshot(this.afs.collection('inventory', ref => ref.where('category', '==', 'womens')));
+    this.miscItems =  this.getSnapshot(this.afs.collection('inventory', ref => ref.where('category', '==', 'misc')));
     
-    this.items = this.menItems.valueChanges();
-    
+    this.items = this.menItems;
 
-    //the user
-  	// this.userDoc = this.afs.doc('users/wFGNGFOabaSnL6JikyyLlIWzb9H3');
 
-    //the item that you want to heart.
-  	//this.itemDoc = this.afs.doc('inventory/1AroTNds5yjOLARzDspP');
-
-  
-  // this.user = this.userDoc.valueChanges();
-  //this.item = this.itemDoc.valueChanges();
 
   }
 
@@ -63,18 +54,28 @@ export class ClothingComponent implements OnInit {
   	return this.itemDoc.ref.id;
   }
 
+    getSnapshot(col): Observable<any[]> {
+    // ['added', 'modified', 'removed']
+    return col.snapshotChanges().map((actions) => {
+      return actions.map((a) => {
+        const data = a.payload.doc.data();
+        return { id: a.payload.doc.id, name: data.name,  image:data.image, imageUrl: data.imageUrl, description: data.description, catgory: data.category };
+      });
+    });
+  }
+
 
 
   changeCat(cat){
     this.activeCat = cat;
     if(cat == 'mens'){
-       this.items = this.menItems.valueChanges();
+       this.items = this.menItems;
     }
      if(cat == 'womens'){
-       this.items = this.womenItems.valueChanges();
+       this.items = this.womenItems;
     }
      if(cat == 'misc'){
-       this.items = this.miscItems.valueChanges();
+       this.items = this.miscItems;
     }
 
     console.log(cat);

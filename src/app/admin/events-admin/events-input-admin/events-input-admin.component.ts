@@ -10,6 +10,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage';
 
+import {MatSnackBar} from '@angular/material';
+
+
 @Component({
   selector: 'events-input-admin',
   templateUrl: './events-input-admin.component.html',
@@ -79,7 +82,7 @@ myForm = new FormGroup({
 
 
 
-constructor(public firebaseApp: FirebaseApp, public eventService: EventService, private uploadService: UploadService) { }
+constructor(public snackBar: MatSnackBar, public firebaseApp: FirebaseApp, public eventService: EventService, private uploadService: UploadService) { }
 
 ngOnInit() {
 
@@ -130,6 +133,9 @@ createEvent(fullImageUrl) {
           
                      //if it is a new image lets delete the last one
            if (event.image != this.previousImage) {
+
+           event['imageUrl']= fullImageUrl;
+
              console.log(event.image);
              console.log(this.previousImage);
              //also chck to make sure no other inventory item uses this same image
@@ -160,14 +166,21 @@ createEvent(fullImageUrl) {
            this.imageUrl = 'no image selected';
            this.selectedFiles = null;
 
+                       this.snackBar.open("Event Created", 'close', {
+      duration: 4000,
+    });
+
+
          }
 
-
-
+ 
        }
 
        updateEvent(id:any, event:any){
          this.eventService.updateEvent(id, event);
+                    this.snackBar.open("Event Updated", 'close', {
+      duration: 4000,
+    });
 
        }
 

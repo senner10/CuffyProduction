@@ -1,62 +1,103 @@
+<!-- ITEMS  -->
 <h1 class="subtitle is-3">Your Favorite Items!</h1>
 <hr/>
-n/a
+
+
+<div class="columns" *ngIf="itemsArray">
+  <div class="column is-4 is-multiline" *ngFor="let item of itemsArray">
+
+
+
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      {{item.name}}
+    </p>
+  
+  <span class="card-header-icon" >
+     <heart [userId]='userId' [itemId]='item.itemId'></heart>
+</span>
+
+  </header>
+  <div class="card-content">
+    <div class="media-left">
+        <figure class="image is-4x3">
+          <img [src]="item.imageUrl" height="100px" width="auto">
+        </figure>
+      </div>
+
+    <div class="content">
+         {{item.description}}
+       
+      <br>
+      <br>
+  <br/><br/>
+
+    </div>
+  </div>
+  <footer class="card-footer">
+   
+  </footer>
+</div>
+
+
+
+  </div>
+</div>
+
+
+<!-- EVENTS -->
+
+
 <br/>
 <br/>
 <h1 class="subtitle is-3">Events you are attending!</h1>
 <hr/>
 
-<div class="columns">
-  <div class="column">
-    
-  </div>
-  <div class="column is-8">
-  
-<div class="box" *ngFor="let event of events; let i = index">
+<div class="columns" *ngIf="eventsArray">
+  <div class="column is-4 is-multiline" *ngFor="let item of eventsArray">
 
-  <article class="media">
+
+
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      {{item.name}}
+    </p>
+
+  </header>
+  <div class="card-content">
     <div class="media-left">
-      <figure class="image is-4x3">
-         <img [src]="setImage(event.image)" class="eventImage">
-      </figure>
-    </div>
-    <div class="media-content">
-      <div class="content" style="padding: 0px">
-        <p>
-          <strong>{{event.name}}</strong>
-          <br/>
-          <small>{{event.date}}</small> 
-          <br>
-         {{event.description}}
-        </p>
+        <figure class="image is-4x3">
+          <img [src]="item.imageUrl" height="100px" width="auto">
+        </figure>
       </div>
-      <nav class="level is-mobile">
-        <div class="level-left">
-        	 <a class="level-item"></a>
-          <a class="level-item">
-            <span class="icon is-small"><i class="fa fa-reply"></i>
-            &nbsp; &nbsp;<small>Share</small> 
-        </span>
-          </a>
-           <a class="level-item"></a>
-            <a class="level-item"></a>
-        <!--   <a class="level-item" (click)='unRsvp(event, i)'>
-            <span class="icon is-small" ><i class="material-icons">event_busy</i></span>
-          &nbsp; &nbsp;<small>Un-RSVP</small> 
-          </a> -->
+
+    <div class="content">
+         {{item.description}}
        
-        </div>
-      </nav>
+      <br>
+      <br>
+      <time datetime="2016-1-1"><strong>{{item.date}}</strong></time>
+  <br/><br/>
+  <div class="level">
+    <div class="level-item">
+     <rsvp [eventId]="item.eventId" [userId]="userId"></rsvp> 
+     </div>
+     </div>
     </div>
-  </article>
-</div>
-
-
   </div>
-  <div class="column">
+  <footer class="card-footer">
    
+  </footer>
+</div>
+
+
+
   </div>
 </div>
+
+
 
 
 

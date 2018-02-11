@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { Observable } from 'rxjs/Observable';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'users-admin',
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UsersAdminComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor(public snackBar: MatSnackBar, public userService: UserService) { }
 
   users: Observable<any>;
 
@@ -30,6 +31,10 @@ export class UsersAdminComponent implements OnInit {
      deleteUser(user:any) {
     
     this.userService.delete(user.id);
+
+                      this.snackBar.open("User Deleted", 'close', {
+      duration: 4000,
+    });
   }
 
 }

@@ -31,7 +31,7 @@ export class InventoryAdminService {
     return this.inventoryCollection.snapshotChanges().map((actions) => {
       return actions.map((a) => {
         const data = a.payload.doc.data();
-        return { id: a.payload.doc.id, name: data.name, tags: data.tags, image:data.image,imageUrl: data.imageUrl, description: data.description, hearts: data.hearts, catgory: data.category };
+        return { id: a.payload.doc.id, name: data.name, tags: data.tags, image:data.image,imageUrl: data.imageUrl, description: data.description, hearts: data.hearts, category: data.category };
       });
     });
   }
@@ -48,9 +48,7 @@ export class InventoryAdminService {
 
 
   createItem(item: any) {
-
-    const tagPath = `inventory/${item.name}`;
-    return this.afs.doc(tagPath).set(item);
+    return this.inventoryCollection.add(item);
   }
 
   updateItem(id: string, data: Partial<Event>) {

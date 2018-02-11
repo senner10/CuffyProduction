@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { InventoryAdminService } from '../inventory-admin.service';
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'inventory-input',
@@ -33,7 +34,7 @@ export class InventoryInputComponent implements OnInit {
   @Input() set itemPassed(value: any) {
 
 if (value) { //if this is an edit then this will set the form values
-console.log('is update', value);
+  console.log('is update', value);
 
   //set prvious image
   this.previousImage = value.image;
@@ -78,7 +79,7 @@ myForm = new FormGroup({
 
 
 
-constructor(public firebaseApp: FirebaseApp, private uploadService: UploadService, public inventoryAdminService:InventoryAdminService) { }
+constructor(public snackBar: MatSnackBar, public firebaseApp: FirebaseApp, private uploadService: UploadService, public inventoryAdminService:InventoryAdminService) { }
 
 ngOnInit() {
   this.tagArr = [];
@@ -127,7 +128,7 @@ createEvent(fullImageUrl) {
 
 
 
-           let item = {
+         let item = {
            name: this.myForm.value.name,
            description: this.myForm.value.description,
            image: this.imageUrl,
@@ -139,10 +140,14 @@ createEvent(fullImageUrl) {
          //do something else if it is an update.       
          if (this.isUpdate) {
 
-         item['imageUrl'] = this.previousImageUrl;
+           item['imageUrl'] = this.previousImageUrl;
 
            //if it is a new image lets delete the last one
            if (item.image != this.previousImage) {
+
+             item['imageUrl']= fullImageUrl;
+
+
              console.log(item.image);
              console.log(this.previousImage);
              //also chck to make sure no other inventory item uses this same image
@@ -165,9 +170,9 @@ createEvent(fullImageUrl) {
 
          } else {
 
-      
 
-           console.log("ITEM CRATD");
+
+
            this.inventoryAdminService.createItem(item);
 
            //reset form
@@ -176,6 +181,10 @@ createEvent(fullImageUrl) {
            this.selectedFiles = null;
            this.tagArr = []
 
+           this.snackBar.open("Item Created", 'close', {
+             duration: 4000,
+           });
+
          }
        }
 
@@ -183,6 +192,10 @@ createEvent(fullImageUrl) {
        updateEvent(id:any, item:any){
 
          this.inventoryAdminService.updateItem(id, item);
+
+         this.snackBar.open("Item Updated", 'close', {
+           duration: 4000,
+         });
 
        }
 

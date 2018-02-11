@@ -8,7 +8,7 @@ import 'firebase/storage';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 @Component({
   selector: 'account',
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class AccountComponent implements OnInit {
 
-  constructor(public firebaseApp: FirebaseApp, public userService: UserService, public authService: AuthService, public eventsService: EventService) { }
+  constructor(private afs: AngularFirestore, public firebaseApp: FirebaseApp, public userService: UserService, public authService: AuthService, public eventsService: EventService) { }
 
   events = [];
 
@@ -26,9 +26,16 @@ export class AccountComponent implements OnInit {
   	imageUrl: '',
   }];
 
-  theEvents: Observable<any>;
+  theEvents: any;
 
   userId: string;
+
+  eventDoc: AngularFirestoreDocument<any>;
+  heartCollection: AngularFirestoreCollection<any>;
+
+  eventsArray = [];
+  itemsArray = [];
+
 
 
 
@@ -37,100 +44,82 @@ export class AccountComponent implements OnInit {
     let subscription: Subscription = new Subscription();
 
 
-    this.theEvents = this.eventsService.getSnapshot();
-
-    this.theEvents.subscribe(data=>{
-     
-
-      for (var i = 0; i < data.length; ++i) {
-        this.getImage(data[i]['image']);
-      }
-
-    });
-
   	//get current user uid
   	this.authService.user.subscribe(userData=>{
       this.userId= userData.uid;
+      console.log(this.userId);
 
 		//get events that the current user is attending
-		subscription.add(this.userService.getRsvpEvents(userData.uid).subscribe(rsvpData=>{
+		this.userService.getRsvpEvents(userData.uid).subscribe(rsvpData=>{
 		
-			for (var i = 0; i < rsvpData.length; ++i) {
+        console.log(rsvpData);
+        this.theEvents = rsvpData;
 
-        //get each event information including id
-        subscription.add(this.eventsService.getSingleEventSnapshot(rsvpData[i]['eventName']).subscribe(event=>{
-          
-  
+       for (var i = 0; i < this.theEvents.length; ++i) {
+         let curEvent = this.theEvents[i].eventId;
+         this.eventDoc = this.afs.doc<any>(`events/${curEvent}`);
 
-          if (event[0]) {
+            this.eventDoc.valueChanges().subscribe(eventData=>{
+              console.log(eventData);
+              eventData['eventId'] = curEvent;
+              let contains = false;
+
+              //make sure it does not already exist
+              for (var z = 0; z < this.eventsArray.length; ++z) {
+                 
+                 if (eventData.eventId == this.eventsArray[z].eventId) {
+                   contains = true;
+                 }
+              }
+              if (!contains) {
+               this.eventsArray.push(eventData);
+              }
+              
+            });
+       }
+      
+
+    });
 
 
-          //add id to event document         
-          this.eventsService.updateEvent(event[0].id, {id: event[0].id});
+    //get users fav items n stuff
+    this.heartCollection = this.afs.collection('hearts', ref => ref.where('userId', '==', this.userId));
 
-          
-         
+    this.heartCollection.valueChanges().subscribe(data=>{
+      for (var k = 0; k < data.length; ++k) {
+        let curItem = data[k].itemId;
 
-          //check to see if event still exists
-          if (this.eventsService.getEvent(event[0].id)) {
+       console.log(data[k].itemId);
+        let itemDoc = this.afs.doc<any>(`inventory/${curItem}`).valueChanges().subscribe(itemData =>{
+          console.log(itemData);
+             itemData['itemId'] = curItem;
+              let contains = false;
 
-            // if the event still exists then push it on 
-            this.events.push(event[0]);
+              //make sure it does not already exist
+              for (var a = 0; a < this.itemsArray.length; ++a) {
+                 
+                 if (itemData.itemId == this.itemsArray[a].itemId) {
+                   contains = true;
+                 }
+              }
+              if (!contains) {
+               this.itemsArray.push(itemData);
+              }
 
-          } 
-        } else {
-            //if its not then lets delete the rsvps to events that no longer exist
-            this.userService.cleanRSVP(userData.uid);
-          }
 
-
-
-           
-
-      }));
+        });
+        
 
       }
+    })   
 
 
-    }));
+
+
   });
   	
   }
 
-  getImage(image:string){
-  	const storageRef = this.firebaseApp.storage().ref().child('cuffyUploads/'+image);
-
-    storageRef.getDownloadURL().then(url => {
-
-    	this.imageArr.push({
-    		image: image,
-    		imageUrl: url,
-    	});
-    	
-    });
-
-  }
-
-
-  setImage(image:string){
-
-  	for (var i = 0; i < this.imageArr.length; ++i) {
-  		if (this.imageArr[i].image == image) {
-  			return this.imageArr[i].imageUrl;
-  		}
-  	}
-
-  	return '';
-
-  }
-
-  // unRsvp(event:any, pos: number){
-  //   console.log(this.events);
-  //   console.log(pos);
-  //   this.userService.unRsvpEvent(event.id, event.name, this.userId);
-   
-
-  // }
 
 
 }
