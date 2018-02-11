@@ -1,18 +1,7 @@
-<!-- <span *ngIf="user?.uid">
-<div *ngFor="let event of events | async">
-	<p>{{event.name}}</p>
-	<p>{{event.description}}</p>
-	<img [src]="event.imageUrl" width="400px">
-	<rsvp [eventId]="event.id" [userId]="user.uid"></rsvp>
-</div>
-</span>
-
- -->
 
 
 
-
-    <div class="row example-centered" *ngIf="user?.uid">
+    <div class="row example-centered" >
         <div class="col-md-12 example-title">
             <h2 class="title">Our Event Timeline</h2>
         </div>
@@ -33,7 +22,10 @@
                         	{{event.description}}
 
                         	<br/><br/>
-                        <rsvp [eventId]="event.id" [userId]="user.uid"></rsvp></p>
+                            <span *ngIf="event.id && user">
+                        <rsvp [eventId]="event.id" [userId]="user.uid"></rsvp>
+                            </span>
+                    </p>
                     </div>
                 </li>
 

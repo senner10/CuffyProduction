@@ -13,36 +13,7 @@
 <div class="columns is-multiline">
 
 <div class="column is-4"  *ngFor="let item of items | async">
-	<span *ngIf="user">
 
-<!-- <div class="card">
-  <div class="card-image">
-    <figure class="image is-4by3">
-      <img [src]="item.imageUrl" alt="Placeholder image">
-    </figure>
-  </div>
-  <div class="card-content">
-    <div class="media">
-      <div class="media-left">
-        <figure class="image is-48x48">
-<heart [userId]='user.uid' [itemId]='item.id'></heart>
-        </figure>
-      </div>
-      <div class="media-content">
-        <p class="title is-4">{{item.name}}</p>
-        
-      </div>
-    </div>
-
-    <div class="content">
-     {{item.description}}<br>
-     <p>
-	{{item.tags}}
-</p>	
-
-    </div>
-  </div>
-</div> -->
 
 <div class="card">
   <header class="card-header">
@@ -51,7 +22,7 @@
 
     </p>
 
-    <span class="card-header-icon" >
+    <span class="card-header-icon" *ngIf="user" >
    <heart [userId]='user.uid' [itemId]='item.id'></heart>
 </span>
 
@@ -81,7 +52,7 @@
 
 
 
-</span>
+
   </div>
   
 

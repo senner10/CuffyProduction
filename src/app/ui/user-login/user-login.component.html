@@ -3,34 +3,73 @@
   <h3>Social Login</h3>
 
     <button (click)="signInWithGoogle()" class="button btn-social btn-google">
-      <i class="fa fa-google fa-lg"></i> Connect Google
+      <i class="fab fa-google fa-lg"></i> Connect Google
     </button>
 
     <button (click)="signInWithGithub()" class="button btn-social btn-github" disabled>
-      <i class="fa fa-github fa-lg"></i> Connect GitHub
+      <i class="fab fa-github fa-lg"></i> Connect GitHub
     </button>
 
     <button (click)="signInWithFacebook()" class="button  btn-social btn-facebook" disabled>
-      <i class="fa fa-facebook fa-lg"></i> Connect Facebook
+      <i class="fab fa-facebook fa-lg"></i> Connect Facebook
     </button>
 
     <button (click)="signInWithTwitter()" class="button  btn-social btn-twitter" disabled>
-      <i class="fa fa-twitter fa-lg"></i> Connect Twitter
+      <i class="fab fa-twitter fa-lg"></i> Connect Twitter
     </button>
 
     <hr>
 
-    <h3>Anonymous Login</h3>
 
-      <button (click)="signInAnonymously()" class="button button-info">
-        <i class="fa fa-user-secret fa-lg"></i> Connect Anonymously
-      </button>
-
-    <hr>
 
     <user-form></user-form>
 
 </div>
+
+<div class="content">
+  <h1>What Does this app do?</h1>
+  <p> this is an app built for small store fronts that want an easy way to increase their web presence</p>
+ <hr/>
+  <h2>Retail Event Manager</h2>
+  <p>Add/Manage your store's events. Once added your customers can then view and RSVP to your events so you can see how many potential attendees your events will have.</p>
+  <div class="columns">
+    <div class="column">
+      <img src="assets/images/eventInput.png">
+     
+    </div>
+    <div class="column">
+       <img src="assets/images/eventView.png">
+    </div>
+  </div>
+
+ <hr/>
+  <h2>Store Location Manager</h2>
+  <p>Add/Manage your store's locations. Customers can then see all of your stores locations compared to their current location.</p>
+  <div class="columns">
+    <div class="column">
+      <img src="assets/images/li.png">
+     
+    </div>
+    <div class="column">
+       <img src="assets/images/lv.png" >
+    </div>
+  </div>
+
+   <hr/>
+  <h2>Inventory Manager</h2>
+  <p>Add/Manage your store's inventory items. Customers can then see all of your items, heart them and view them later.</p>
+  <div class="columns">
+    <div class="column">
+      <img src="assets/images/inventoryInput.png" >
+     
+    </div>
+    <div class="column">
+       <img src="assets/images/inventoryView.png" >
+    </div>
+  </div>
+  
+
+  </div>
 
 <ng-template #alreadyLoggedIn>
   <p class="text-success">

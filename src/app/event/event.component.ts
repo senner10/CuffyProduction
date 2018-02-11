@@ -22,7 +22,7 @@ export class EventComponent implements OnInit {
 
       this.auth.user.subscribe(user=> {
       this.user = user;
-      console.log(this.user.uid);
+      
     })
 
     this.events = this.eventService.getSnapshot();

@@ -18,13 +18,13 @@ import { LocationsInputAdminComponent } from './admin/locations-admin/locations-
 import { LocationsListAdminComponent } from './admin/locations-admin/locations-list-admin/locations-list-admin.component';
 
 const routes: Routes = [
-  { path: '', component: ReadmePageComponent },
+  { path: '', component: UserLoginComponent },
   { path: 'login', component: UserLoginComponent },
-  { path: 'notes', component: NotesListComponent,  canActivate: [AuthGuard] },
-    { path: 'events', component: EventComponent,  canActivate: [AuthGuard] },
-  { path: 'products', component: ClothingComponent,  canActivate: [AuthGuard] },
-  { path: 'calendar', component: CalendarComponent,  canActivate: [AuthGuard] },
-  { path: 'locations', component: LocationComponent,  canActivate: [AuthGuard] },
+  { path: 'notes', component: NotesListComponent },
+    { path: 'events', component: EventComponent},
+  { path: 'products', component: ClothingComponent},
+  { path: 'calendar', component: CalendarComponent},
+  { path: 'locations', component: LocationComponent },
   { path: 'admin', redirectTo: 'admin/events/create'},
   { path: 'admin/locations', component: AdminComponent},
   { path: 'admin/events/manage', component: AdminComponent},
