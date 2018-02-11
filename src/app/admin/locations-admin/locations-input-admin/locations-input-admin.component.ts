@@ -43,36 +43,36 @@ export class LocationsInputAdminComponent implements OnInit {
   submitLoc(){
 
 
-         this.mapsAPILoader.load().then(() => {
-    console.log('google script loaded');
+//          this.mapsAPILoader.load().then(() => {
+//     console.log('google script loaded');
 
-    var address = this.myForm.value.address;
+//     var address = this.myForm.value.address;
 
-    var result = "";
+//     var result = "";
     
-    var geocoder = new google.maps.Geocoder();
+//     var geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({ 'address': address }, (results, status) => {
-      var latitude = results[0].geometry.location.lat();
-      var longitude = results[0].geometry.location.lng();
-      console.log("lat: " + latitude + ", long: " + longitude);
+//     geocoder.geocode({ 'address': address }, (results, status) => {
+//       var latitude = results[0].geometry.location.lat();
+//       var longitude = results[0].geometry.location.lng();
+//       console.log("lat: " + latitude + ", long: " + longitude);
 
     
-     let location = {
-           name: this.myForm.value.name,
-           description: this.myForm.value.description,
-           address: this.myForm.value.address,
-           lat: latitude,
-           lng: longitude,
-         }
+//      let location = {
+//            name: this.myForm.value.name,
+//            description: this.myForm.value.description,
+//            address: this.myForm.value.address,
+//            lat: latitude,
+//            lng: longitude,
+//          }
 
-          this.locationsService.createLocation(location);
-           //reset form
-           this.myForm.reset();
-        });
+//           this.locationsService.createLocation(location);
+//            //reset form
+//            this.myForm.reset();
+//         });
 
 
-});
+// });
 
       this.snackBar.open("Location Created", 'close', {
       duration: 4000,
