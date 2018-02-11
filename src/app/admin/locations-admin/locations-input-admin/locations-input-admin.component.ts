@@ -5,15 +5,15 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage';
 
-import {} from '@types/googlemaps';
-
 import { Observable } from 'rxjs/Observable';
 import { MapsAPILoader } from '@agm/core';
 
 import { LocationsService } from '../locations.service';
 import {MatSnackBar} from '@angular/material';
 
-declare var google: any;
+import {} from '@types/googlemaps';
+
+var google: any;
 
 
 @Component({
