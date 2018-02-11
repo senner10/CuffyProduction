@@ -35,7 +35,8 @@
     "firebase": "4.6.2",
     "geofire": "^4.1.2",
     "rxjs": "^5.5.2",
-    "zone.js": "^0.8.18"
+    "zone.js": "^0.8.18",
+    "@angular/compiler-cli": "^5.0.2",
   },
   "devDependencies": {
     "@angular/cli": "^1.5.2",
