@@ -37,6 +37,7 @@
     "core-js": "^2.5.1",
     "firebase": "4.6.2",
     "geofire": "^4.1.2",
+    "google-maps": "^3.2.1",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.18"
   },

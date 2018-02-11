@@ -7,13 +7,13 @@ import 'firebase/storage';
 
 import { Observable } from 'rxjs/Observable';
 import { MapsAPILoader } from '@agm/core';
-
+import { AgmCoreModule } from '@agm/core';
 import { LocationsService } from '../locations.service';
 import {MatSnackBar} from '@angular/material';
 
 import {} from '@types/googlemaps';
 
-var google: any;
+declare var google: any;
 
 
 @Component({
@@ -50,9 +50,9 @@ export class LocationsInputAdminComponent implements OnInit {
 
     var result = "";
     
-    //var geocoder = new google.maps.Geocoder();
+    var geocoder = new google.maps.Geocoder();
 
-    google.maps.Geocoder().geocode({ 'address': address }, (results, status) => {
+    geocoder.geocode({ 'address': address }, (results, status) => {
       var latitude = results[0].geometry.location.lat();
       var longitude = results[0].geometry.location.lng();
       console.log("lat: " + latitude + ", long: " + longitude);
