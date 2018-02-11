@@ -50,9 +50,9 @@ export class LocationsInputAdminComponent implements OnInit {
 
     var result = "";
     
-    var geocoder = new google.maps.Geocoder();
+    //var geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({ 'address': address }, (results, status) => {
+    google.maps.Geocoder().geocode({ 'address': address }, (results, status) => {
       var latitude = results[0].geometry.location.lat();
       var longitude = results[0].geometry.location.lng();
       console.log("lat: " + latitude + ", long: " + longitude);
