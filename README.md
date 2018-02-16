@@ -3,7 +3,7 @@
 
 # Retail App
 
-View The Demo Here: https://cuffy-6092c.firebaseapp.com
+View The Demo Here: https://cuffy-dev.firebaseapp.com/
 
 ## What Does this app do?
 
